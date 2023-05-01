@@ -47,7 +47,7 @@ const Keyboard = {
       const fragment = document.createDocumentFragment();
       const keyLayout = [
           "`","1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-          "Tab","q", "w", "e", "r", "t", "y", "u", "i", "o", "p","[","]","Del",
+          "tab","q", "w", "e", "r", "t", "y", "u", "i", "o", "p","[","]","del",
           "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l",";","'", "enter",
           "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?",
           "space"
@@ -60,7 +60,7 @@ const Keyboard = {
 
       keyLayout.forEach(key => {
           const keyElement = document.createElement("button");
-          const insertLineBreak = ["backspace", "Del", "enter", "?"].indexOf(key) !== -1;
+          const insertLineBreak = ["backspace", "del", "enter", "?"].indexOf(key) !== -1;
 
           // добавляем атрибуты и классы
           keyElement.setAttribute("type", "button");
@@ -70,6 +70,17 @@ const Keyboard = {
               case "backspace":
                   keyElement.classList.add("keyboard__key--wide");
                   keyElement.innerHTML = createIconHTML("backspace");
+
+                  keyElement.addEventListener("click", () => {
+                      this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
+                      this._triggerEvent("oninput");
+                  });
+
+                  break;
+
+              case "del":
+                  keyElement.classList.add("keyboard__key--wide");
+                  keyElement.innerHTML = createIconHTML("del");
 
                   keyElement.addEventListener("click", () => {
                       this.properties.value = this.properties.value.substring(0, this.properties.value.length - 1);
